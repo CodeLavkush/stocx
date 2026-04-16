@@ -1,10 +1,10 @@
 import mongoose, { Schema } from "mongoose"
 import bcrypt from "bcrypt"
 import crypto from "crypto"
-import jwt from jwt
+import jwt from "jsonwebtoken"
 
 
-const user = new Schema(
+const userSchema = new Schema(
     {
         email: {
             type: String,
@@ -81,16 +81,20 @@ userSchema.methods.generateRefreshToken = function () {
     )
 }
 
-userSchema.methods.generateTemporaryToken = function () {
-    const unhashedToken = crypto.randomBytes(20).toString("hex")
+userSchema.methods.generateOTP = function () {
+    // generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    const hashedToken = crypto
+    // hash the OTP before saving
+    const hashedOTP = crypto
         .createHash("sha256")
-        .update(unhashedToken)
-        .digest("hex")
+        .update(otp)
+        .digest("hex");
 
-    const tokenExpiry = Date.now() + (20 * 60 * 1000) // 20 mins
-    return { unhashedToken, hashedToken, tokenExpiry }
-}
+    // expiry (5–10 mins is standard)
+    const otpExpiry = Date.now() + 10 * 60 * 1000; // 10 mins
+
+    return { otp, hashedOTP, otpExpiry };
+};
 
 export const User = mongoose.model("User", userSchema);
