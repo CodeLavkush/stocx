@@ -32,24 +32,49 @@ const createItem = asyncHandler(async (req, res) => {
 })
 
 const getItems = asyncHandler(async (req, res) => {
-    const items = await Item.aggregate([
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const skip = (page - 1) * limit;
+
+    const result = await Item.aggregate([
         {
             $match: {
                 user: new mongoose.Types.ObjectId(req?.user._id)
             }
+        },
+        {
+            $facet: {
+                items: [
+                    { $skip: skip },
+                    { $limit: limit }
+                ],
+                totalCount: [
+                    { $count: "count" }
+                ]
+            }
         }
     ])
 
-    if (!items) {
+    if (!result) {
         throw new ApiError(404, "Items not found with this account")
     }
+
+    const items = result[0].items;
+    const totalItems = result[0].totalCount[0]?.count || 0;
 
     return res
         .status(200)
         .json(
             new ApiResponse(
                 200,
-                items,
+                {
+                    page,
+                    limit,
+                    totalItems,
+                    totalPages: Math.ceil(totalItems / limit),
+                    items
+                },
                 "Items fetched successfully"
             )
         )
