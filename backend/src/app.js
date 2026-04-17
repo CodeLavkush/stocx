@@ -21,9 +21,13 @@ app.use(cors({
 // import the routes
 import healthCheckRouter from "./routes/healthcheck.routes.js"
 import authRouter from "./routes/auth.routes.js"
+import itemRouter from "./routes/item.routes.js"
+import dashboardRouter from "./routes/dashboard.routes.js"
 
 app.use("/api/v1/healthcheck", healthCheckRouter)
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/items", itemRouter)
+app.use("/api/v1/dashboard", dashboardRouter)
 
 app.get('/', (req, res) => {
     res.send("Welcome to inventory management system backend!")

@@ -38,7 +38,33 @@ const userLoginValidator = () => {
     ]
 }
 
+const itemValidator = () => {
+    return [
+        body("name")
+            .trim()
+            .notEmpty()
+            .withMessage("Item name is required"),
+        body("sku")
+            .trim()
+            .optional(),
+        body("quantity")
+            .isNumeric()
+            .withMessage("Quantity must be a numeric value")
+            .notEmpty()
+            .withMessage("Quantity is not defined"),
+        body("price")
+            .isNumeric()
+            .withMessage("Price must be a numeric value")
+            .notEmpty()
+            .withMessage("Price is not defined"),
+        body("category")
+            .trim()
+            .optional()
+    ]
+}
+
 export {
     userLoginValidator,
-    userRegisterValidator
+    userRegisterValidator,
+    itemValidator,
 }
