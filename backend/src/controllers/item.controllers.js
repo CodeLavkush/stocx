@@ -1,4 +1,4 @@
-import { Item } from "../models/item.models";
+import { Item } from "../models/item.models.js";
 import { User } from "../models/user.models.js"
 import { asyncHandler } from "../utils/async-handler.js"
 import { ApiError } from "../utils/api-error.js"
@@ -112,11 +112,11 @@ const updateItem = asyncHandler(async (req, res) => {
             price,
         },
         {
-            new: true,
+            returnDocument: "after",
         }
     )
 
-    if (!updateItem) {
+    if (!updatedItem) {
         throw new ApiError(404, "Item not found")
     }
 
@@ -125,7 +125,7 @@ const updateItem = asyncHandler(async (req, res) => {
         .json(
             new ApiResponse(
                 200,
-                updateItem,
+                updatedItem,
                 "Item updated successfully",
             )
         )

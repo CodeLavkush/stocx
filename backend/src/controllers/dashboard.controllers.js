@@ -1,7 +1,7 @@
-import { Item } from "../models/item.models";
-import { ApiError } from "../utils/api-error";
-import { ApiResponse } from "../utils/api-response";
-import { asyncHandler } from "../utils/async-handler";
+import { Item } from "../models/item.models.js";
+import { ApiError } from "../utils/api-error.js";
+import { ApiResponse } from "../utils/api-response.js";
+import { asyncHandler } from "../utils/async-handler.js";
 
 const getSummary = asyncHandler(async (req, res) => {
     const summary = await Item.aggregate([
