@@ -2,7 +2,7 @@ import conf from "../conf/conf.js";
 
 export async function apiRequest(endpoint, method = "GET", body, withCredentials = false) {
     try {
-        const response = await fetch(`${conf.backendURL}${endpoint}`, {
+        const response = await fetch(`${endpoint}`, {
             method,
             headers: {
                 "content-type": "application/json",

@@ -16,20 +16,10 @@ export const refreshToken = () =>
     apiRequest(`${authURL}/refresh-token`, "POST");
 
 export const getCurrentUser = () =>
-    apiRequest(`${authURL}/current-user`, "GET", null, true);
+    apiRequest(`${authURL}/current-user`, "POST", null, true);
 
 export const logout = () =>
     apiRequest(`${authURL}/logout`, "POST", null, true);
 
 export const resendVerificationEmail = () =>
     apiRequest(`${authURL}/resend-email-verification`, "POST", null, true);
-
-export {
-    register,
-    login,
-    getCurrentUser,
-    logout,
-    refreshToken,
-    resendVerificationEmail,
-    verifyEmail,
-}
