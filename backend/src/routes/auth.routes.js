@@ -14,7 +14,7 @@ router
     .route("/login")
     .post(userLoginValidator(), validate, login)
 router
-    .route("/verify-email/:otp")
+    .route("/verify-email/:otp") //TODO: use body insted of params
     .post(verifyEmail)
 router
     .route("/refresh-token")

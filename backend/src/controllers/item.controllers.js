@@ -108,7 +108,7 @@ const getItemById = asyncHandler(async (req, res) => {
         }
     ])
 
-    if (!item) {
+    if (!item.length) {
         throw new ApiError(404, "Item not found")
     }
 
