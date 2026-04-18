@@ -175,7 +175,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 })
 
 const verifyEmail = asyncHandler(async (req, res) => {
-    const { otp } = req.params
+    const { otp } = req.body
 
     if (!otp) {
         throw new ApiError(400, "Email Verification OTP is missing")
