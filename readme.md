@@ -142,7 +142,7 @@ MAILTRAP_SMTP_PASS=your_mailtrap_pass
 
 ---
 
-## 🎨 Frontend `.env`
+## 🎨 Frontend `.env.sample`
 
 ```env id="st8"
 VITE_API_URL=http://localhost:4000
