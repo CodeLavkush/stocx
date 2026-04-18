@@ -1,4 +1,4 @@
-import { apiRequest } from "./apiRequest.js";
+import { apiRequest } from "../utils/apiRequest.js";
 
 const itemURL = "/api/v1/items";
 

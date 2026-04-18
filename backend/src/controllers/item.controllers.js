@@ -46,6 +46,7 @@ const getItems = asyncHandler(async (req, res) => {
         {
             $facet: {
                 items: [
+                    { $sort: { createdAt: -1 } },
                     { $skip: skip },
                     { $limit: limit }
                 ],
@@ -56,7 +57,7 @@ const getItems = asyncHandler(async (req, res) => {
         }
     ])
 
-    if (!result) {
+    if (!result.length) {
         throw new ApiError(404, "Items not found with this account")
     }
 

@@ -3,31 +3,27 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from './components/Login.jsx';
-import Register from './components/Register.jsx';
-import OTP from './components/OTP.jsx';
-import Dashboard from './pages/Dashboard.jsx';
+import { Dashboard } from './pages/index.js';
+import { Inventory, Summary, Profile, Register, Login, OTP } from "./components/index.js"
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "login",
-        element: <Login />
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "verification",
-        element: <OTP />,
-      },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "verification", element: <OTP /> },
+
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <Dashboard />, // layout
+        children: [
+          { path: "profile", element: <Profile /> },
+          { path: "summary", element: <Summary /> },
+          { path: "inventory", element: <Inventory /> },
+        ]
       }
     ]
   }
